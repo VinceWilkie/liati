@@ -65,7 +65,7 @@ export default function BrandsPage() {
                   <div className="absolute inset-0">
                     <img
                         src="/liati-fun-and-accessories.png"
-                        alt="LIATI Fun & Accessories Logo"
+                        alt="Braid Me Logo"
                         className="w-full h-full object-cover"
                       />
                   </div>
