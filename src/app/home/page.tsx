@@ -1,6 +1,14 @@
 'use client';
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { Great_Vibes } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+    weight: "400",
+    subsets: ["latin"],
+    variable: "--font-great-vibes",
+});
 
 export default function HomePage() {
   return (
@@ -17,32 +25,39 @@ export default function HomePage() {
           </div>
 
           {/* Welcome Text with Animations */}
-          <div className="space-y-6">
-            <h1 className="text-5xl md:text-7xl font-bold text-slate-900 animate-fade-in-up">
+          <div className="space-y-3">
+            <h1 className={`${greatVibes.className} text-5xl md:text-7xl text-slate-900 animate-fade-in-up`}>
               Welcome to
             </h1>
-            <h2 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-              LIATI
-            </h2>
+            <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+              <Image
+                src="/liati.png"
+                alt="LIATI"
+                width={248}
+                height={97}
+                className="mx-auto"
+                priority
+              />
+            </div>
           </div>
         </div>
 
-        <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '1.5s' }}>
+        <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '700ms' }}>
           Discover our carefully curated collection of fashion brands, each offering unique pieces
           that help you express your personal style and personality.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '2s' }}>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '1100ms' }}>
           <Link
             href="/brands"
-            className="px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold rounded-full hover:from-pink-600 hover:to-rose-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="flex items-center justify-center px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold rounded-full hover:from-pink-600 hover:to-rose-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Explore Our Brands
           </Link>
           <Link
             href="#about"
-            className="px-8 py-4 border-2 border-pink-500 text-pink-600 font-semibold rounded-full hover:bg-pink-500 hover:text-white transform hover:scale-105 transition-all duration-300"
+            className="flex items-center justify-center px-8 py-4 border-2 border-pink-500 text-pink-600 font-semibold rounded-full hover:bg-pink-500 hover:text-white transform hover:scale-105 transition-all duration-300"
           >
             Learn More
           </Link>

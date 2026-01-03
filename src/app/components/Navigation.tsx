@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Navigation() {
@@ -8,9 +9,9 @@ export default function Navigation() {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/home', label: 'Home' },
-    { href: '/my-story', label: 'Story' },
-    { href: '/brands', label: 'Brands' },
+    { href: `/home`, label: `Home` },
+    { href: `/my-story`, label: `My Story` },
+    { href: `/brands`, label: `Our Brands` },
   ];
 
   return (
@@ -18,8 +19,14 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/home" className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent">LIATI</h1>
+          <Link href="/home" className="flex items-center">
+            <Image
+              src="/liati.png"
+              alt="LIATI"
+              width={77}
+              height={30}
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -28,11 +35,10 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                  pathname === item.href
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${pathname === item.href
                     ? 'text-pink-600 bg-pink-50'
                     : 'text-slate-700 hover:text-pink-600 hover:bg-pink-50'
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
@@ -64,11 +70,10 @@ export default function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                    pathname === item.href
+                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${pathname === item.href
                       ? 'text-pink-600 bg-pink-50'
                       : 'text-slate-700 hover:text-pink-600 hover:bg-pink-50'
-                  }`}
+                    }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
