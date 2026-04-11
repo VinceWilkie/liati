@@ -1,12 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID!;
 const NOTIFICATION_EMAIL = `liati.business@gmail.com`;
 
 export async function POST(request: NextRequest) {
     try {
+        const apiKey = process.env.RESEND_API_KEY;
+        const audienceId = process.env.RESEND_AUDIENCE_ID;
+
+        if (!apiKey || !audienceId) {
+            console.error(`Missing env vars — RESEND_API_KEY: ${!!apiKey}, RESEND_AUDIENCE_ID: ${!!audienceId}`);
+            return NextResponse.json(
+                { error: `Service temporarily unavailable.` },
+                { status: 503 }
+            );
+        }
+
+        const resend = new Resend(apiKey);
+
         const body = await request.json();
         const { email } = body;
 
@@ -27,7 +38,7 @@ export async function POST(request: NextRequest) {
 
         const { error: contactError } = await resend.contacts.create({
             email,
-            audienceId: AUDIENCE_ID,
+            audienceId: audienceId,
         });
 
         if (contactError) {
@@ -44,17 +55,21 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        await resend.emails.send({
-            from: `LIATI Newsletter <onboarding@resend.dev>`,
-            to: NOTIFICATION_EMAIL,
-            subject: `New Newsletter Subscriber`,
-            html: `
-                <h2>New Newsletter Subscriber</h2>
-                <p>A new user has subscribed to the LIATI newsletter:</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
-            `,
-        });
+        try {
+            await resend.emails.send({
+                from: `LIATI Newsletter <onboarding@resend.dev>`,
+                to: NOTIFICATION_EMAIL,
+                subject: `New Newsletter Subscriber`,
+                html: `
+                    <h2>New Newsletter Subscriber</h2>
+                    <p>A new user has subscribed to the LIATI newsletter:</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+                `,
+            });
+        } catch (emailError) {
+            console.error(`Notification email failed (non-blocking):`, emailError);
+        }
 
         return NextResponse.json(
             { message: `Successfully subscribed!` },
