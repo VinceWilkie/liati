@@ -24,7 +24,7 @@ export default function NotFound() {
             </h2>
             <p className="text-lg text-slate-600 mb-8">
               Oops! It looks like this page got lost in the fashion world.
-              Don't worry, even the best outfits sometimes need a little adjustment.
+              Don&apos;t worry, even the best outfits sometimes need a little adjustment.
             </p>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default function NotFound() {
         {/* Fun Message */}
         <div className="mt-12 p-6 bg-white/50 backdrop-blur-sm rounded-2xl border border-pink-200">
           <p className="text-slate-600 italic">
-            "Love is all there is" - even when you can't find what you're looking for! 💕
+            &ldquo;Love is all there is&rdquo; - even when you can&apos;t find what you&apos;re looking for! 💕
           </p>
         </div>
       </div>
