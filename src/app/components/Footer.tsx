@@ -30,7 +30,10 @@ export default function Footer() {
             const res = await fetch(`/api/subscribe`, {
                 method: `POST`,
                 headers: { "Content-Type": `application/json` },
-                body: JSON.stringify({ email }),
+                body: JSON.stringify({
+                    email,
+                    website: (e.target as HTMLFormElement).querySelector<HTMLInputElement>(`[name="website"]`)?.value ?? ``,
+                }),
             });
 
             const data = await res.json();
@@ -133,6 +136,14 @@ export default function Footer() {
                             Subscribe for the latest fashion updates and exclusive offers.
                         </p>
                         <form onSubmit={handleSubscribe} noValidate className="space-y-3">
+                            <input
+                                type="text"
+                                name="website"
+                                autoComplete="off"
+                                tabIndex={-1}
+                                aria-hidden="true"
+                                className="absolute overflow-hidden w-0 h-0 opacity-0 pointer-events-none"
+                            />
                             <div className="flex flex-col sm:flex-row gap-2">
                                 <input
                                     type="email"
