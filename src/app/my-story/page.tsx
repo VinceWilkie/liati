@@ -189,7 +189,7 @@ export default function MyStoryPage() {
             {/* Horizontal Carousel */}
             <div
                 ref={carouselRef}
-                className="h-[100vh] w-full overflow-hidden relative select-none"
+                className="h-[100svh] w-full overflow-hidden relative select-none"
             >
                 {/* Slide track */}
                 <div
